@@ -1,0 +1,280 @@
+{
+  "name": "Enhanced Content Strategy Agent with Industry Templates",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "content-strategy-with-template",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 400],
+      "webhookId": "content-strategy-with-template"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "industry",
+              "name": "industry",
+              "value": "={{ $json.industry || 'b2b-saas' }}",
+              "type": "string"
+            },
+            {
+              "id": "business_name",
+              "name": "business_name",
+              "value": "={{ $json.business_name || 'Example Business' }}",
+              "type": "string"
+            },
+            {
+              "id": "target_customer",
+              "name": "target_customer",
+              "value": "={{ $json.target_customer || 'Small business owners' }}",
+              "type": "string"
+            },
+            {
+              "id": "unique_value_prop",
+              "name": "unique_value_prop",
+              "value": "={{ $json.unique_value_prop || 'Innovative solutions' }}",
+              "type": "string"
+            },
+            {
+              "id": "competitor_urls",
+              "name": "competitor_urls",
+              "value": "={{ $json.competitor_urls || [] }}",
+              "type": "array"
+            },
+            {
+              "id": "business_goal",
+              "name": "business_goal",
+              "value": "={{ $json.business_goal || 'Increase brand awareness' }}",
+              "type": "string"
+            },
+            {
+              "id": "additional_context",
+              "name": "additional_context",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "extract-inputs",
+      "name": "Extract Inputs",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [450, 400]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=# ROLE\nYou are the Stage 1: Research & Competitive Analyst for a content strategy system.\nYou specialize in {{ $json.industry }} industry content strategies.\n\n# TASK\nAnalyze the competitive landscape and identify strategic content opportunities for this {{ $json.industry }} business.\n\n# BUSINESS DETAILS\nBusiness Name: {{ $json.business_name }}\nIndustry: {{ $json.industry }}\nTarget Customer: {{ $json.target_customer }}\nUnique Value Proposition: {{ $json.unique_value_prop }}\nCompetitors: {{ $json.competitor_urls.join(', ') }}\nBusiness Goal: {{ $json.business_goal }}\n\n# INDUSTRY-SPECIFIC CONTEXT\nThis is a {{ $json.industry }} business. Apply industry-specific best practices:\n\n{{ $json.industry === 'b2b-saas' ? '- Focus on thought leadership, product education, and long sales cycles\\n- LinkedIn primary platform\\n- Demo videos and case studies critical\\n- ROI and feature comparison content' : '' }}\n{{ $json.industry === 'ecommerce' ? '- Visual product showcasing essential\\n- Instagram and TikTok primary\\n- UGC and influencer partnerships\\n- Seasonal campaigns and product launches' : '' }}\n{{ $json.industry === 'real-estate' ? '- Hyperlocal content and neighborhood expertise\\n- Video tours and property showcases\\n- Facebook and YouTube primary\\n- Market updates and buyer/seller education' : '' }}\n{{ $json.industry === 'healthcare' ? '- HIPAA compliance required\\n- Patient education without medical claims\\n- Trust-building through transparency\\n- Facebook primary for local practices' : '' }}\n{{ $json.industry === 'restaurant' ? '- Visual food content (photos/videos)\\n- Instagram and Google Business critical\\n- Behind-the-scenes and chef/owner personality\\n- Menu highlights and daily specials' : '' }}\n{{ $json.industry === 'coaching' ? '- Personal brand and founder story\\n- Transformation stories and testimonials\\n- LinkedIn for B2B, Instagram for life coaching\\n- High-ticket sales through trust-building' : '' }}\n{{ $json.industry === 'legal-services' ? '- Ethical compliance (state bar rules)\\n- Educational content primary\\n- Local SEO critical\\n- YouTube for trust-building and expertise' : '' }}\n{{ $json.industry === 'automotive' ? '- Trust-building through transparency\\n- Diagnostic videos and educational content\\n- Google Business Profile essential\\n- Local community engagement' : '' }}\n{{ $json.industry === 'beauty-salon' ? '- Before/after transformations\\n- Instagram primary platform\\n- Client permission and UGC\\n- Visual-first content strategy' : '' }}\n{{ $json.industry === 'hospitality' ? '- Guest experience showcase\\n- Direct booking optimization\\n- Instagram and TikTok for discovery\\n- User-generated content strategy' : '' }}\n\n# INSTRUCTIONS\n1. Analyze the competitive landscape for this {{ $json.industry }} business\n2. Identify content gaps and opportunities specific to this industry\n3. Recommend platform strategies appropriate for {{ $json.industry }}\n4. Suggest content themes that resonate with {{ $json.target_customer }}\n\n# OUTPUT FORMAT (STRICT JSON)\nYou MUST output ONLY valid JSON with this exact structure:\n\n{\n  \"industry\": \"{{ $json.industry }}\",\n  \"competitive_analysis\": {\n    \"competitors_analyzed\": [\n      {\n        \"name\": \"Competitor name\",\n        \"strengths\": [\"What they do well\"],\n        \"weaknesses\": [\"What they're missing\"],\n        \"content_focus\": \"Their primary content strategy\"\n      }\n    ],\n    \"market_position\": \"Where this business fits in the landscape\"\n  },\n  \"content_gaps\": [\n    {\n      \"gap\": \"Specific content topic or angle competitors aren't covering\",\n      \"opportunity\": \"Why this matters for {{ $json.business_name }}\",\n      \"impact\": \"HIGH, MEDIUM, or LOW\"\n    }\n  ],\n  \"strategic_opportunities\": [\n    {\n      \"opportunity\": \"Specific strategic content opportunity\",\n      \"rationale\": \"Why this will work for {{ $json.industry }}\",\n      \"platform\": \"Best platform for this content\",\n      \"priority\": \"HIGH, MEDIUM, or LOW\"\n    }\n  ],\n  \"platform_recommendations\": {\n    \"primary\": \"Most important platform for this industry\",\n    \"secondary\": \"Second priority platform\",\n    \"optional\": [\"Additional platforms to consider\"],\n    \"avoid\": [\"Platforms that don't work for this industry\"]\n  },\n  \"content_themes\": [\n    {\n      \"theme\": \"Content theme name\",\n      \"description\": \"What this content looks like\",\n      \"frequency\": \"How often to post this type\",\n      \"expected_outcome\": \"What this achieves\"\n    }\n  ]\n}\n\nIMPORTANT: Output ONLY the JSON object above. No additional text before or after.",
+        "options": {
+          "maxTokens": 4096,
+          "temperature": 0.7
+        }
+      },
+      "id": "stage1-research-analyst",
+      "name": "Stage 1: Research Analyst (Industry-Aware)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.7,
+      "position": [650, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credentials",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "jsonata",
+        "jsonataExpression": "=$eval($string($node[\"Stage 1: Research Analyst (Industry-Aware)\"].json.response))"
+      },
+      "id": "parse-json-output",
+      "name": "Parse JSON Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [850, 400]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=# ROLE\nYou are the Stage 2: Brand Voice Content Generator for a content strategy system.\nYou specialize in creating platform-optimized content for {{ $('Extract Inputs').item.json.industry }} businesses.\n\n# TASK\nGenerate three platform-optimized content pieces based on the strategic research.\n\n# BUSINESS CONTEXT\nBusiness: {{ $('Extract Inputs').item.json.business_name }}\nIndustry: {{ $('Extract Inputs').item.json.industry }}\nTarget Audience: {{ $('Extract Inputs').item.json.target_customer }}\nUnique Value: {{ $('Extract Inputs').item.json.unique_value_prop }}\n\n# STRATEGIC INSIGHTS (from Stage 1)\n{{ JSON.stringify($json, null, 2) }}\n\n# INDUSTRY-SPECIFIC CONTENT REQUIREMENTS\n\n{{ $('Extract Inputs').item.json.industry === 'b2b-saas' ? '## B2B SaaS Content Guidelines\\n- LinkedIn posts: Thought leadership, 150-300 words, line breaks for readability\\n- Include data/metrics when possible\\n- End with question or soft CTA\\n- Professional but not corporate tone' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'ecommerce' ? '## E-commerce Content Guidelines\\n- Instagram: Product showcase with lifestyle context\\n- Carousel format (swipe-worthy)\\n- Clear product benefit in caption\\n- Call-to-action with urgency' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'restaurant' ? '## Restaurant Content Guidelines\\n- Food photography focus\\n- Instagram primary: Mouth-watering visuals\\n- Behind-the-scenes kitchen content\\n- Daily specials and seasonal menu items' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'healthcare' ? '## Healthcare Content Guidelines\\n- HIPAA-compliant (no patient info without consent)\\n- Educational, not promotional\\n- Build trust through transparency\\n- Facebook: Community health tips' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'legal-services' ? '## Legal Services Content Guidelines\\n- State bar compliance (educational, not guarantees)\\n- Include required disclaimers\\n- YouTube: \"Know Your Rights\" educational series\\n- Build authority through free education' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'coaching' ? '## Coaching Content Guidelines\\n- Personal story and vulnerability\\n- Transformation focus\\n- LinkedIn: Professional thought leadership\\n- Instagram: Inspirational + tactical value' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'beauty-salon' ? '## Beauty/Salon Content Guidelines\\n- Before/after transformations (with permission)\\n- Instagram Reels: Transformation process videos\\n- Show products used\\n- Tag clients (with permission)' : '' }}\n\n{{ $('Extract Inputs').item.json.industry === 'automotive' ? '## Automotive Content Guidelines\\n- Transparency builds trust (show diagnostic process)\\n- Educational: Car care tips\\n- Google Business: Weekly posts\\n- Customer testimonial videos' : '' }}\n\n# INSTRUCTIONS\nGenerate 3 content pieces optimized for the recommended platforms:\n\n1. **Primary Platform Content** (recommended by Stage 1)\n2. **Secondary Platform Content**\n3. **Discovery Platform Content** (TikTok/Shorts/Reels)\n\nEach piece should:\n- Follow industry-specific best practices\n- Align with strategic opportunities from Stage 1\n- Be ready to post (formatted correctly for platform)\n- Include strategic rationale\n\n# OUTPUT FORMAT\nProvide well-formatted content with clear platform specifications and strategic context.\n\nIMPORTANT: Make content specific to {{ $('Extract Inputs').item.json.industry }} industry best practices.",
+        "options": {
+          "maxTokens": 4096,
+          "temperature": 0.8
+        }
+      },
+      "id": "stage2-content-generator",
+      "name": "Stage 2: Content Generator (Industry-Optimized)",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.7,
+      "position": [1050, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credentials",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "stage1_analysis",
+              "name": "stage1_analysis",
+              "value": "={{ $('Parse JSON Output').item.json }}",
+              "type": "object"
+            },
+            {
+              "id": "stage2_content",
+              "name": "stage2_content",
+              "value": "={{ $json.response }}",
+              "type": "string"
+            },
+            {
+              "id": "industry",
+              "name": "industry",
+              "value": "={{ $('Extract Inputs').item.json.industry }}",
+              "type": "string"
+            },
+            {
+              "id": "business_name",
+              "name": "business_name",
+              "value": "={{ $('Extract Inputs').item.json.business_name }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            },
+            {
+              "id": "processing_time_seconds",
+              "name": "processing_time_seconds",
+              "value": "={{ ($now.toMillis() - $('Webhook Trigger').item.json.$now.toMillis()) / 1000 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-final-output",
+      "name": "Format Final Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [1250, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "respond-to-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1450, 400]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Inputs": {
+      "main": [
+        [
+          {
+            "node": "Stage 1: Research Analyst (Industry-Aware)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage 1: Research Analyst (Industry-Aware)": {
+      "main": [
+        [
+          {
+            "node": "Parse JSON Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse JSON Output": {
+      "main": [
+        [
+          {
+            "node": "Stage 2: Content Generator (Industry-Optimized)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage 2: Content Generator (Industry-Optimized)": {
+      "main": [
+        [
+          {
+            "node": "Format Final Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Final Output": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "id": "enhanced-content-workflow-with-templates",
+  "meta": {
+    "instanceId": "your-instance-id"
+  },
+  "tags": []
+}

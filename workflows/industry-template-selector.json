@@ -1,0 +1,478 @@
+{
+  "name": "Industry Template Selector",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "select-industry-template",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300],
+      "webhookId": "industry-template-selector"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "industry",
+              "name": "industry",
+              "value": "={{ $json.industry || 'b2b-saas' }}",
+              "type": "string"
+            },
+            {
+              "id": "business_details",
+              "name": "business_details",
+              "value": "={{ $json }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-variables",
+      "name": "Set Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": ""
+          },
+          "conditions": [
+            {
+              "id": "b2b-saas",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "b2b-saas",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "ecommerce",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "ecommerce",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "real-estate",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "real-estate",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "healthcare",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "healthcare",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "financial-services",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "financial-services",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "fitness-wellness",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "fitness-wellness",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "professional-services",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "professional-services",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "restaurant",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "restaurant",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "education",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "education",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "manufacturing",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "manufacturing",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "nonprofit",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "nonprofit",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "marketing-agency",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "marketing-agency",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "coaching",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "coaching",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "legal-services",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "legal-services",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "automotive",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "automotive",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "beauty-salon",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "beauty-salon",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "hospitality",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "hospitality",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "tech-startup",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "tech-startup",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "retail",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "retail",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "creator-economy",
+              "leftValue": "={{ $json.industry }}",
+              "rightValue": "creator-economy",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combineOperation": "any"
+        },
+        "options": {}
+      },
+      "id": "switch-industry",
+      "name": "Switch Industry",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "template_loaded",
+              "name": "template_loaded",
+              "value": "=true",
+              "type": "boolean"
+            },
+            {
+              "id": "industry_name",
+              "name": "industry_name",
+              "value": "={{ $('Switch Industry').item.json.industry }}",
+              "type": "string"
+            },
+            {
+              "id": "template_context",
+              "name": "template_context",
+              "value": "=Industry-specific template context loaded for {{ $('Switch Industry').item.json.industry }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "merge-template-context",
+      "name": "Merge Template Context",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond-to-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1050, 300]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Variables": {
+      "main": [
+        [
+          {
+            "node": "Switch Industry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Industry": {
+      "main": [
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Template Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Template Context": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "id": "industry-template-selector",
+  "meta": {
+    "instanceId": "your-instance-id"
+  },
+  "tags": []
+}

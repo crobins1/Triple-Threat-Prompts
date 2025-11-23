@@ -1,0 +1,190 @@
+{
+  "test_cases": [
+    {
+      "name": "B2B SaaS Test",
+      "industry": "b2b-saas",
+      "business_name": "CloudMetrics Analytics",
+      "target_customer": "Sales leaders at B2B companies with 50-500 employees",
+      "unique_value_prop": "Real-time sales pipeline analytics that integrates with any CRM without complex setup",
+      "competitor_urls": [
+        "https://www.gong.io",
+        "https://www.clari.com",
+        "https://www.chorus.ai"
+      ],
+      "business_goal": "Generate 200 qualified demo requests per month, establish thought leadership in sales analytics",
+      "additional_details": {
+        "pricing_model": "Per-seat per month ($99/user)",
+        "sales_cycle_length": "45-60 days",
+        "key_features": ["Real-time dashboards", "AI-powered forecasting", "Multi-CRM integration"]
+      }
+    },
+    {
+      "name": "E-commerce Test",
+      "industry": "ecommerce",
+      "business_name": "EcoThreads Sustainable Fashion",
+      "target_customer": "Eco-conscious millennials and Gen Z, 25-40, willing to pay premium for sustainable fashion",
+      "unique_value_prop": "Carbon-neutral fashion made from recycled ocean plastics with transparent supply chain",
+      "competitor_urls": [
+        "https://www.instagram.com/reformation",
+        "https://www.patagonia.com",
+        "https://www.everlane.com"
+      ],
+      "business_goal": "30% month-over-month revenue growth, build brand loyalty, 50K Instagram followers in 6 months",
+      "additional_details": {
+        "price_point": "Mid-premium ($80-$200 per item)",
+        "product_range": "Women's clothing, accessories, small men's line",
+        "sustainability_certs": ["B-Corp certified", "Plastic Bank partner", "Carbon neutral shipping"]
+      }
+    },
+    {
+      "name": "Real Estate Test",
+      "industry": "real-estate",
+      "business_name": "Martinez Realty Group",
+      "target_customer": "First-time homebuyers and sellers in Austin metro area, 28-45 years old",
+      "unique_value_prop": "Hyperlocal Austin neighborhood expertise with tech-forward home search experience",
+      "competitor_urls": [
+        "https://www.instagram.com/austinrealestate",
+        "https://www.facebook.com/localagent",
+        "https://www.youtube.com/c/austinhomes"
+      ],
+      "business_goal": "20 buyer/seller clients per quarter, dominate SEO for 'Austin real estate agent', build email list of 5K",
+      "additional_details": {
+        "service_area": "Austin, Pflugerville, Round Rock, Cedar Park",
+        "specialization": "Tech worker relocation, first-time buyers",
+        "team_size": "Lead agent + 2 buyer agents + transaction coordinator"
+      }
+    },
+    {
+      "name": "Healthcare Test",
+      "industry": "healthcare",
+      "business_name": "Family Health Partners",
+      "target_customer": "Families with children in North Dallas suburbs",
+      "unique_value_prop": "Family medicine practice with same-day appointments and online visit options",
+      "competitor_urls": [
+        "https://www.facebook.com/localfamilydoc",
+        "https://www.healthcarepractice.com",
+        "https://www.localmedical.com"
+      ],
+      "business_goal": "100 new patient families per quarter, reduce no-show rate, establish local health authority",
+      "additional_details": {
+        "services": ["Pediatrics", "Adult medicine", "Preventive care", "Telemedicine"],
+        "insurance": "Accept most major insurance + self-pay",
+        "hours": "Mon-Fri 8am-6pm, Sat 9am-1pm"
+      }
+    },
+    {
+      "name": "Restaurant Test",
+      "industry": "restaurant",
+      "business_name": "Bella Vita Italian Kitchen",
+      "target_customer": "Date night couples and families in suburban neighborhood, 30-60 years old",
+      "unique_value_prop": "Authentic Northern Italian cuisine in warm, family-owned atmosphere",
+      "competitor_urls": [
+        "https://www.instagram.com/italianrestaurant",
+        "https://www.facebook.com/localpizza",
+        "https://www.olivegarden.com"
+      ],
+      "business_goal": "Fill tables Thu-Sat nights, build catering business, 10K local Instagram followers",
+      "additional_details": {
+        "cuisine_style": "Northern Italian, handmade pasta, wood-fired pizza",
+        "price_point": "Mid-range ($18-35 entrees)",
+        "special_features": "Wine bar, patio seating, private dining room"
+      }
+    },
+    {
+      "name": "Coaching Test",
+      "industry": "coaching",
+      "business_name": "Executive Edge Leadership Coaching",
+      "target_customer": "Mid-level managers transitioning to senior leadership roles at tech companies",
+      "unique_value_prop": "Former VP of Engineering at Google helping tech leaders scale from IC to executive",
+      "competitor_urls": [
+        "https://www.linkedin.com/in/executivecoach1",
+        "https://www.linkedin.com/in/leadershipcoach2",
+        "https://www.coachingsite.com"
+      ],
+      "business_goal": "Maintain 12 active 1-on-1 clients year-round at $3K/month, launch group program at $10K",
+      "additional_details": {
+        "coaching_model": "1-on-1 bi-weekly calls + Slack access + quarterly in-person",
+        "program_length": "6-12 months",
+        "credentials": "Former Google VP, 15 years leadership, ICF certified"
+      }
+    },
+    {
+      "name": "Legal Services Test",
+      "industry": "legal-services",
+      "business_name": "Garcia Personal Injury Law",
+      "target_customer": "Individuals injured in serious car accidents in Houston metro",
+      "unique_value_prop": "Former insurance defense attorney, knows how insurance companies evaluate cases, bilingual (Spanish)",
+      "competitor_urls": [
+        "https://www.localpiattorney.com",
+        "https://www.youtube.com/c/caraccidentlawyer",
+        "https://www.facebook.com/injurylawfirm"
+      ],
+      "business_goal": "100 qualified consultations/month, 30% case acceptance rate, average case value $150K+",
+      "additional_details": {
+        "practice_areas": "Car accidents, truck accidents, wrongful death",
+        "fee_structure": "Contingency only (33% before suit, 40% if filed)",
+        "credentials": "18 years experience, multi-million dollar verdicts, AV-rated"
+      }
+    },
+    {
+      "name": "Automotive Test",
+      "industry": "automotive",
+      "business_name": "Precision Auto Repair",
+      "target_customer": "Honda/Toyota owners who want dealership-quality work without dealership prices",
+      "unique_value_prop": "ASE Master Certified, specializing in Honda/Toyota, transparent pricing with video inspections",
+      "competitor_urls": [
+        "https://www.facebook.com/localautorepair",
+        "https://www.youtube.com/c/carrepairshop",
+        "https://www.google.com/maps/localshop"
+      ],
+      "business_goal": "50 new customers per month, 70% customer retention rate, reduce oil-change-only customers",
+      "additional_details": {
+        "services": "General repair, diagnostics, brakes, transmission, AC, timing belts",
+        "average_ticket": "$450",
+        "unique_features": "Digital vehicle inspections with photos, shuttle service, warranty on all work"
+      }
+    },
+    {
+      "name": "Beauty Salon Test",
+      "industry": "beauty-salon",
+      "business_name": "Luxe Hair Studio",
+      "target_customer": "Women 25-50, professionals and moms, willing to invest in hair health",
+      "unique_value_prop": "Balayage specialists with natural-looking color and extensions expertise",
+      "competitor_urls": [
+        "https://www.instagram.com/hairsalon1",
+        "https://www.instagram.com/balayagespecialist",
+        "https://www.facebook.com/localsalon"
+      ],
+      "business_goal": "Book out 3-4 weeks in advance, increase extension clients to 2 per week, 60% retention rate",
+      "additional_details": {
+        "services": "Color, extensions, cuts, treatments",
+        "price_point": "Upscale ($250 average ticket)",
+        "stylist_count": "3 stylists, all 8+ years experience"
+      }
+    },
+    {
+      "name": "Hospitality Test",
+      "industry": "hospitality",
+      "business_name": "Coastal Haven Boutique Hotel",
+      "target_customer": "Couples seeking authentic local experience over chain hotels, 30-60 years old",
+      "unique_value_prop": "Only boutique hotel on East Beach, locally-owned, sustainable practices, curated local experience",
+      "competitor_urls": [
+        "https://www.instagram.com/chainhotel",
+        "https://www.instagram.com/boutique",
+        "https://www.booking.com/competitor"
+      ],
+      "business_goal": "Increase direct bookings from 45% to 60%, 70% year-round occupancy, 15 weddings/events per year",
+      "additional_details": {
+        "room_count": "24 rooms",
+        "price_point": "$280-$650/night",
+        "amenities": "Rooftop lounge, beach access, bike rentals, wine hour, farm-to-table breakfast"
+      }
+    }
+  ],
+  "usage_instructions": {
+    "description": "These test cases cover 10 of the 20 industries with realistic business scenarios",
+    "how_to_use": "Send POST request to workflow webhook with any test case JSON object",
+    "expected_processing_time": "60-120 seconds per request",
+    "validation": "Check that industry-specific recommendations appear in Stage 1 and content follows industry best practices in Stage 2"
+  }
+}

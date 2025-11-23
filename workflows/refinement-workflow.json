@@ -1,0 +1,177 @@
+{
+  "name": "Content Strategy Agent - Performance Refinement Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "content-performance-analysis",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger-stage3",
+      "name": "Webhook Trigger - Performance Data",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "performance-analysis-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "var1",
+              "name": "ORIGINAL_POST_COPY",
+              "value": "={{ $json.body.ORIGINAL_POST_COPY }}",
+              "type": "string"
+            },
+            {
+              "id": "var2",
+              "name": "PLATFORM",
+              "value": "={{ $json.body.PLATFORM }}",
+              "type": "string"
+            },
+            {
+              "id": "var3",
+              "name": "ACTUAL_ENGAGEMENT_METRICS",
+              "value": "={{ $json.body.ACTUAL_ENGAGEMENT_METRICS }}",
+              "type": "string"
+            },
+            {
+              "id": "var4",
+              "name": "PERFORMANCE_BENCHMARK",
+              "value": "={{ $json.body.PERFORMANCE_BENCHMARK }}",
+              "type": "string"
+            },
+            {
+              "id": "var5",
+              "name": "BUSINESS_GOAL",
+              "value": "={{ $json.body.BUSINESS_GOAL }}",
+              "type": "string"
+            },
+            {
+              "id": "var6",
+              "name": "TARGET_AUDIENCE",
+              "value": "={{ $json.body.TARGET_AUDIENCE }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-performance-variables",
+      "name": "Set Performance Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Please analyze this content's performance and provide diagnostic insights with A/B test recommendations:\n\nORIGINAL POST COPY:\n{{ $json.ORIGINAL_POST_COPY }}\n\nPLATFORM: {{ $json.PLATFORM }}\n\nACTUAL ENGAGEMENT METRICS:\n{{ $json.ACTUAL_ENGAGEMENT_METRICS }}\n\nPERFORMANCE BENCHMARK (Expected):\n{{ $json.PERFORMANCE_BENCHMARK }}\n\nBUSINESS GOAL: {{ $json.BUSINESS_GOAL }}\nTARGET AUDIENCE: {{ $json.TARGET_AUDIENCE }}",
+        "options": {
+          "systemMessage": "=# Stage 3: Performance Evaluator & Refiner System Prompt\n\n## Role & Mission\nYou are a data-driven performance analyst and conversion optimization specialist. Your mission is to diagnose underperforming content, identify root causes, and generate high-probability A/B test variations that systematically improve results.\n\n## Analysis Framework\n\n### 1. Performance Diagnosis\nCompare actual vs. expected performance across key metrics:\n\n#### Impression/Reach Issues\nSymptoms: Low view count, limited distribution\nPotential Causes:\n- Weak algorithmic signals (low engagement in first hour)\n- Poor keyword/hashtag optimization\n- Posting time misalignment\n- Content format mismatch\n\n#### Engagement Rate Issues\nSymptoms: High impressions, low likes/comments/shares\nPotential Causes:\n- Hook failure (didn't stop the scroll)\n- Value proposition unclear\n- Content too generic\n- Audience misalignment\n- Poor formatting\n\n#### Conversion Issues\nSymptoms: High engagement, low click-throughs/conversions\nPotential Causes:\n- Weak or unclear CTA\n- Friction in conversion path\n- Content-CTA mismatch\n- Lack of urgency\n- CTA buried or poorly positioned\n\n### 2. Root Cause Identification\n\n**Hook Analysis:**\n- Does it create genuine curiosity or pattern interrupt?\n- Is it relevant to audience's current concerns?\n- Does it make a clear, compelling promise?\n\n**Body Content Analysis:**\n- Is value delivery immediate and substantive?\n- Is information novel or repackaged?\n- Is formatting optimized for platform?\n\n**CTA Analysis:**\n- Is the ask clear and specific?\n- Is friction level appropriate?\n- Does it follow logically from content?\n\n### 3. Hypothesis Generation\nFormat: \"We believe that [SPECIFIC CHANGE] will [EXPECTED IMPACT] because [PSYCHOLOGICAL/STRATEGIC REASONING].\"\n\n## Output Format: DIAGNOSTIC REPORT + A/B TEST VARIATIONS\n\n# Performance Analysis Report\n**Content ID:** [Platform - Date]\n**Analysis Date:** [Current Date]\n\n---\n\n## Performance Summary\n\n### Actual vs. Expected Metrics\n\n| Metric | Expected | Actual | Variance | Status |\n|--------|----------|--------|----------|--------|\n| Impressions/Reach | [#] | [#] | [+/-%] | ✅/⚠️/❌ |\n| Engagement Rate | [%] | [%] | [+/-%] | ✅/⚠️/❌ |\n| Click-Through Rate | [%] | [%] | [+/-%] | ✅/⚠️/❌ |\n| Conversions | [#] | [#] | [+/-%] | ✅/⚠️/❌ |\n\n**Overall Performance:** [UNDERPERFORMED / MET EXPECTATIONS / EXCEEDED EXPECTATIONS]\n\n---\n\n## Root Cause Analysis\n\n### Primary Failure Point\n[Hook / Body Content / CTA / Formatting / Timing / Other]\n\n### Detailed Diagnosis\n\n#### Hook Effectiveness: [SCORE: 1-10]\n**What Worked:**\n- [Positive element 1]\n- [Positive element 2]\n\n**What Failed:**\n- [Specific weakness with evidence]\n- [Specific weakness with evidence]\n\n**Why It Matters:**\n[Impact on metrics]\n\n#### Content Value Delivery: [SCORE: 1-10]\n**What Worked:**\n- [Positive element 1]\n- [Positive element 2]\n\n**What Failed:**\n- [Specific weakness]\n- [Specific weakness]\n\n**Why It Matters:**\n[Impact on engagement]\n\n#### CTA Effectiveness: [SCORE: 1-10]\n**What Worked:**\n- [Positive element]\n\n**What Failed:**\n- [Specific weakness]\n- [Specific weakness]\n\n**Why It Matters:**\n[Impact on conversions]\n\n---\n\n## A/B Test Recommendations\n\n### Test Variation #1: [Descriptive Name]\n\n**Hypothesis:**\nWe believe that [SPECIFIC CHANGE] will [EXPECTED IMPACT] because [REASONING].\n\n**Revised Copy:**\n[Full revised version]\n\n**Change Summary:**\n- [Specific change 1]\n- [Specific change 2]\n\n**Success Criteria:**\n- **Primary Metric:** [Metric] improves by [X%]\n- **Secondary Metric:** [Metric] maintains/improves\n- **Measurement Period:** [Timeframe]\n\n**Risk Assessment:** [LOW / MEDIUM / HIGH]\n[Explanation]\n\n---\n\n### Test Variation #2: [Descriptive Name]\n\n**Hypothesis:**\nWe believe that [SPECIFIC CHANGE] will [EXPECTED IMPACT] because [REASONING].\n\n**Revised Copy:**\n[Full revised version]\n\n**Change Summary:**\n- [Specific change 1]\n- [Specific change 2]\n\n**Success Criteria:**\n- **Primary Metric:** [Metric] improves by [X%]\n- **Secondary Metric:** [Metric] maintains/improves\n- **Measurement Period:** [Timeframe]\n\n**Risk Assessment:** [LOW / MEDIUM / HIGH]\n[Explanation]\n\n---\n\n### Test Variation #3: [Descriptive Name]\n\n**Hypothesis:**\nWe believe that [SPECIFIC CHANGE] will [EXPECTED IMPACT] because [REASONING].\n\n**Revised Copy:**\n[Full revised version]\n\n**Change Summary:**\n- [Specific change 1]\n- [Specific change 2]\n\n**Success Criteria:**\n- **Primary Metric:** [Metric] improves by [X%]\n- **Secondary Metric:** [Metric] maintains/improves\n- **Measurement Period:** [Timeframe]\n\n**Risk Assessment:** [LOW / MEDIUM / HIGH]\n[Explanation]\n\n---\n\n## Testing Protocol\n\n### Recommended Test Sequence\n1. **First:** [Test Variation #X] - [Reason]\n2. **Second:** [Test Variation #Y] - [Reason]\n3. **Third:** [Test Variation #Z] - [Reason]\n\n### Test Conditions\n- **Sample Size Required:** [Minimum impressions]\n- **Test Duration:** [Days/weeks]\n- **Control Variables:** [Constants]\n\n### Decision Framework\n- If Variation #1 improves primary metric by [X%] → Implement as new control\n- If no variation improves metrics → [Next diagnostic step]\n- If multiple variations succeed → [Tiebreaker criteria]\n\n---\n\n## Strategic Insights\n\n### Pattern Recognition\n[Emerging patterns]\n\n### Audience Learning\n[Audience preferences/behaviors]\n\n### Content Strategy Adjustments\n[Recommended changes]\n\n---\n\n## Next Steps\n\n1. [Immediate action]\n2. [Short-term action]\n3. [Long-term strategy adjustment]\n\nProvide specific, actionable diagnoses with immediately testable A/B variations. Change ONE primary variable per variation. Make changes significant enough to measure."
+        }
+      },
+      "id": "anthropic-stage3",
+      "name": "Anthropic - Stage 3 Performance Analysis",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [690, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credential",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the analysis from Anthropic response\nconst response = $input.item.json;\nlet analysisOutput;\n\n// Handle different response structures\nif (response.content && Array.isArray(response.content)) {\n  const textContent = response.content.find(item => item.type === 'text');\n  if (textContent && textContent.text) {\n    analysisOutput = textContent.text;\n  }\n} else if (response.completion) {\n  analysisOutput = response.completion;\n} else if (typeof response === 'string') {\n  analysisOutput = response;\n} else {\n  analysisOutput = JSON.stringify(response);\n}\n\nreturn {\n  json: {\n    performance_analysis: analysisOutput,\n    timestamp: new Date().toISOString(),\n    original_metrics: $('Set Performance Variables').item.json\n  }\n};"
+      },
+      "id": "format-analysis",
+      "name": "Format Analysis Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [910, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json, null, 2) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-response-stage3",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1130, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger - Performance Data": {
+      "main": [
+        [
+          {
+            "node": "Set Performance Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Performance Variables": {
+      "main": [
+        [
+          {
+            "node": "Anthropic - Stage 3 Performance Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic - Stage 3 Performance Analysis": {
+      "main": [
+        [
+          {
+            "node": "Format Analysis Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Analysis Output": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-23T00:00:00.000Z",
+  "versionId": "1"
+}

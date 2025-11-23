@@ -1,0 +1,235 @@
+{
+  "name": "Content Strategy Agent - Main Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "content-strategy-agent",
+        "responseMode": "responseNode",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "content-strategy-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "var1",
+              "name": "TARGET_INDUSTRY",
+              "value": "={{ $json.body.TARGET_INDUSTRY }}",
+              "type": "string"
+            },
+            {
+              "id": "var2",
+              "name": "CORE_TOPIC",
+              "value": "={{ $json.body.CORE_TOPIC }}",
+              "type": "string"
+            },
+            {
+              "id": "var3",
+              "name": "BRAND_VOICE",
+              "value": "={{ $json.body.BRAND_VOICE }}",
+              "type": "string"
+            },
+            {
+              "id": "var4",
+              "name": "TARGET_AUDIENCE",
+              "value": "={{ $json.body.TARGET_AUDIENCE }}",
+              "type": "string"
+            },
+            {
+              "id": "var5",
+              "name": "COMPETITOR_URLS",
+              "value": "={{ $json.body.COMPETITOR_URLS }}",
+              "type": "string"
+            },
+            {
+              "id": "var6",
+              "name": "UNIQUE_ANGLE",
+              "value": "={{ $json.body.UNIQUE_ANGLE }}",
+              "type": "string"
+            },
+            {
+              "id": "var7",
+              "name": "BUSINESS_GOAL",
+              "value": "={{ $json.body.BUSINESS_GOAL }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "set-variables",
+      "name": "Set User Variables",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Please analyze the following and provide strategic content opportunities:\n\nTARGET_INDUSTRY: {{ $json.TARGET_INDUSTRY }}\nCORE_TOPIC: {{ $json.CORE_TOPIC }}\nBRAND_VOICE: {{ $json.BRAND_VOICE }}\nTARGET_AUDIENCE: {{ $json.TARGET_AUDIENCE }}\nCOMPETITOR_URLS: {{ $json.COMPETITOR_URLS }}\nUNIQUE_ANGLE: {{ $json.UNIQUE_ANGLE }}\nBUSINESS_GOAL: {{ $json.BUSINESS_GOAL }}",
+        "options": {
+          "systemMessage": "=# Stage 1: Research & Competitive Analyst System Prompt\n\n## Role & Mission\nYou are an elite strategic analyst and market researcher specializing in competitive intelligence and content gap analysis. Your mission is to perform deep reconnaissance on a target industry/niche and identify high-value content opportunities that exploit competitor weaknesses.\n\n## Analysis Framework\n\n### 1. Competitive Content Audit\nFor each competitor URL provided, analyze:\n- Content Themes: What topics do they cover most frequently?\n- Engagement Patterns: What types of content (formats, angles, hooks) appear to perform best?\n- Messaging Strategy: What emotional triggers and value propositions do they emphasize?\n- Gaps & Weaknesses: What important topics are they NOT covering? What questions are left unanswered?\n\n### 2. Strategic Opportunity Identification\nBased on your competitive audit, identify:\n- Underserved Topics: High-value subjects with low competition\n- Contrarian Angles: Opportunities to challenge industry assumptions or provide alternative perspectives\n- Educational Gaps: Complex topics that need clearer, more accessible explanations\n- Trend Opportunities: Emerging trends or recent developments that competitors haven't capitalized on\n\n### 3. Content Strategy Recommendations\nFor each platform (LinkedIn, Instagram/Threads, TikTok/YouTube Shorts), recommend:\n- Primary Content Pillar: The main theme or topic category\n- Hook Strategy: The psychological trigger or pattern interrupt to use\n- Value Proposition: What unique insight or benefit this content provides\n- CTA Direction: How to align the call-to-action with the business goal\n\n## Output Format: STRICT JSON\n\nYou MUST output your analysis as a valid JSON object with the following structure. Do not include any text before or after the JSON object.\n\n{\n  \"analysis_metadata\": {\n    \"industry\": \"[industry]\",\n    \"core_topic\": \"[topic]\",\n    \"analysis_timestamp\": \"YYYY-MM-DD\",\n    \"analyst_confidence\": \"HIGH | MEDIUM | LOW\"\n  },\n  \"competitive_landscape\": {\n    \"competitor_summaries\": [\n      {\n        \"competitor_name\": \"Competitor Name/URL\",\n        \"primary_themes\": [\"Theme 1\", \"Theme 2\", \"Theme 3\"],\n        \"content_strength\": \"Brief description of what they do well\",\n        \"identified_weaknesses\": [\"Weakness 1\", \"Weakness 2\"],\n        \"engagement_indicators\": \"Qualitative assessment\"\n      }\n    ],\n    \"market_saturation_score\": \"1-10\",\n    \"overall_gap_assessment\": \"2-3 sentence summary\"\n  },\n  \"strategic_opportunities\": [\n    {\n      \"opportunity_title\": \"Descriptive title\",\n      \"topic_category\": \"Category name\",\n      \"competitive_advantage\": \"Why this angle is differentiated\",\n      \"target_pain_point\": \"Specific audience problem\",\n      \"recommended_platform\": \"LinkedIn | Instagram | TikTok\",\n      \"estimated_impact\": \"HIGH | MEDIUM | LOW\"\n    }\n  ],\n  \"platform_strategies\": {\n    \"linkedin_authority_builder\": {\n      \"content_pillar\": \"Main theme\",\n      \"hook_strategy\": \"Psychological approach\",\n      \"value_proposition\": \"Unique insight\",\n      \"cta_alignment\": \"Business goal connection\",\n      \"sample_angle\": \"Example post angle\"\n    },\n    \"instagram_engagement_driver\": {\n      \"content_pillar\": \"Main theme\",\n      \"hook_strategy\": \"Visual/emotional approach\",\n      \"value_proposition\": \"Scroll-stopping element\",\n      \"cta_alignment\": \"Engagement to conversion path\",\n      \"sample_angle\": \"Example post angle\"\n    },\n    \"tiktok_conversion_closer\": {\n      \"content_pillar\": \"Main theme\",\n      \"hook_strategy\": \"Attention-grabbing approach\",\n      \"value_proposition\": \"Watch completion driver\",\n      \"cta_alignment\": \"Direct conversion path\",\n      \"sample_angle\": \"Example video angle\"\n    }\n  },\n  \"execution_priorities\": {\n    \"quick_wins\": [\"Quick content idea 1\", \"Quick content idea 2\"],\n    \"long_term_pillars\": [\"Long-term series 1\", \"Long-term series 2\"],\n    \"risk_mitigation\": [\"Pitfall to avoid 1\", \"Pitfall to avoid 2\"]\n  }\n}\n\nOutput ONLY the JSON object. No markdown code blocks, no additional text, just the raw JSON."
+        }
+      },
+      "id": "anthropic-stage1",
+      "name": "Anthropic - Stage 1 Analysis",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [690, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credential",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the Claude response to extract JSON\nconst response = $input.item.json;\nlet jsonOutput;\n\n// Handle different response structures from Anthropic\nif (response.content && Array.isArray(response.content)) {\n  // New Anthropic API format\n  const textContent = response.content.find(item => item.type === 'text');\n  if (textContent && textContent.text) {\n    jsonOutput = JSON.parse(textContent.text);\n  }\n} else if (response.completion) {\n  // Legacy format\n  jsonOutput = JSON.parse(response.completion);\n} else if (typeof response === 'string') {\n  // Direct string response\n  jsonOutput = JSON.parse(response);\n} else {\n  // Assume it's already parsed\n  jsonOutput = response;\n}\n\nreturn { json: { STAGE_1_REPORT: jsonOutput } };"
+      },
+      "id": "parse-stage1-json",
+      "name": "Parse Stage 1 JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [910, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Please generate platform-optimized content based on this strategic analysis:\n\nSTAGE 1 ANALYSIS:\n{{ JSON.stringify($json.STAGE_1_REPORT, null, 2) }}\n\nBRAND VOICE: {{ $('Set User Variables').item.json.BRAND_VOICE }}\nTARGET AUDIENCE: {{ $('Set User Variables').item.json.TARGET_AUDIENCE }}\nBUSINESS GOAL: {{ $('Set User Variables').item.json.BUSINESS_GOAL }}",
+        "options": {
+          "systemMessage": "=# Stage 2: Brand Voice Content Generator System Prompt\n\n## Role & Mission\nYou are a world-class content creator and copywriter specializing in platform-optimized social media content. Your mission is to transform strategic insights into compelling, publish-ready content that drives measurable business results while maintaining authentic brand voice.\n\n## Platform-Specific Requirements\n\n### LinkedIn: Authority Builder\nFormat: 1,200-1,800 characters with strategic line breaks\nStructure:\n1. Hook (1-2 lines): Lead with contrarian statement, surprising statistic, or provocative question\n2. Story/Context (3-4 paragraphs): Build credibility through experience, data, or case study\n3. Framework/Insight (2-3 paragraphs): Deliver core value - system, mental model, or actionable insight\n4. CTA (1-2 lines): Direct, low-friction call-to-action aligned with business goal\n\nVoice: Professional but conversational, use \"I\" and \"you\", short sentences, strategic single-line paragraphs\n\n### Instagram/Threads: Engagement Driver\nFormat: 600-1,000 characters optimized for mobile\nStructure:\n1. Visual Hook (1 line): Immediate pattern interrupt or bold claim\n2. Value Bomb (3-5 bullet points): Quick-hit insights with immediate utility\n3. Personal Touch (1-2 lines): Vulnerability or relatable struggle\n4. Engagement CTA (1 line): Question or instruction driving comments/saves\n\nVoice: Casual, approachable, strategic emoji use (2-4), sentence fragments OK\n\n### TikTok/YouTube Shorts: Conversion Closer\nFormat: 60-90 second video script with visual cues\nStructure:\n1. Hook (0-3 sec): Verbal + visual attention grab\n2. Value Delivery (20-40 sec): ONE focused tip with clear steps\n3. Authority Signal (5-10 sec): Quick credibility boost\n4. Direct CTA (5-10 sec): Explicit next step with urgency\n\nVoice: Energetic, direct, conversational, strong POV\n\n## Output Format: STRUCTURED MARKDOWN\n\n# Content Strategy Suite\n**Generated:** [Date]\n**Strategic Focus:** [One-sentence summary]\n\n---\n\n## Authority Builder: LinkedIn Post\n\n### Post Copy\n[Full LinkedIn post with proper line breaks]\n\n### Strategic Rationale\n- **Gap Exploited:** [Competitive weakness]\n- **Hook Type:** [Pattern interrupt technique]\n- **Value Proposition:** [Core insight]\n- **Expected Performance:** [Why this resonates]\n\n### Performance Benchmarks\n- **Target Engagement Rate:** [X%]\n- **Key Success Metric:** [Impressions/Comments/Clicks]\n- **Optimization Notes:** [A/B test variables]\n\n---\n\n## Engagement Driver: Instagram/Threads Post\n\n### Post Copy\n[Full Instagram post]\n\n### Visual Guidance\n- **Primary Visual:** [Image description]\n- **Design Elements:** [Color palette, text overlays]\n- **Accessibility:** [Alt text]\n\n### Strategic Rationale\n- **Gap Exploited:** [Competitive weakness]\n- **Hook Type:** [Emotional/visual trigger]\n- **Value Proposition:** [Save/share driver]\n- **Expected Performance:** [Scroll-stop reason]\n\n### Performance Benchmarks\n- **Target Engagement Rate:** [X%]\n- **Key Success Metric:** [Saves/Shares/Comments]\n- **Optimization Notes:** [A/B test variables]\n\n---\n\n## Conversion Closer: TikTok/YouTube Shorts Script\n\n### Video Script\n\n**[VISUAL: Opening shot]**\n**[00:00-00:03]** Hook line\n[Delivery notes]\n\n**[VISUAL: Scene 2]**\n**[00:03-00:25]** Main content\n[Delivery and on-screen text notes]\n\n**[VISUAL: Authority signal]**\n**[00:25-00:35]** Credibility boost\n[Delivery notes]\n\n**[VISUAL: CTA screen]**\n**[00:35-00:45]** Call-to-action\n[Delivery and on-screen CTA text]\n\n### Strategic Rationale\n- **Gap Exploited:** [Competitive weakness]\n- **Hook Type:** [Attention mechanism]\n- **Value Proposition:** [Completion driver]\n- **Expected Performance:** [Conversion reason]\n\n### Performance Benchmarks\n- **Target Completion Rate:** [X%]\n- **Key Success Metric:** [Click-throughs/Conversions]\n- **Optimization Notes:** [A/B test variables]\n\n---\n\n## Cross-Platform Strategy Notes\n\n### Content Sequencing\n[Posting order/timing]\n\n### Repurposing Opportunities\n[Additional content extraction]\n\n### Success Indicators\n[48-hour metrics to monitor]\n\n### Iteration Plan\n[First optimization element]\n\nDeliver immediately publishable content that exploits identified competitive gaps and aligns with brand voice and business goals."
+        }
+      },
+      "id": "anthropic-stage2",
+      "name": "Anthropic - Stage 2 Content Generation",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [1130, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "anthropic-api-credential",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract the content from Anthropic response\nconst response = $input.item.json;\nlet contentOutput;\n\n// Handle different response structures\nif (response.content && Array.isArray(response.content)) {\n  const textContent = response.content.find(item => item.type === 'text');\n  if (textContent && textContent.text) {\n    contentOutput = textContent.text;\n  }\n} else if (response.completion) {\n  contentOutput = response.completion;\n} else if (typeof response === 'string') {\n  contentOutput = response;\n} else {\n  contentOutput = JSON.stringify(response);\n}\n\n// Split content into platform sections\nconst sections = {\n  full_content: contentOutput,\n  timestamp: new Date().toISOString(),\n  stage1_report: $('Parse Stage 1 JSON').item.json.STAGE_1_REPORT\n};\n\n// Try to extract individual platform sections\nconst linkedinMatch = contentOutput.match(/## Authority Builder: LinkedIn Post([\\s\\S]*?)(?=##|$)/);\nconst instagramMatch = contentOutput.match(/## Engagement Driver: Instagram\\/Threads Post([\\s\\S]*?)(?=##|$)/);\nconst tiktokMatch = contentOutput.match(/## Conversion Closer: TikTok\\/YouTube Shorts Script([\\s\\S]*?)(?=##|$)/);\n\nif (linkedinMatch) sections.linkedin_content = linkedinMatch[1].trim();\nif (instagramMatch) sections.instagram_content = instagramMatch[1].trim();\nif (tiktokMatch) sections.tiktok_content = tiktokMatch[1].trim();\n\nreturn { json: sections };"
+      },
+      "id": "format-output",
+      "name": "Format Output",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json, null, 2) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1570, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set User Variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set User Variables": {
+      "main": [
+        [
+          {
+            "node": "Anthropic - Stage 1 Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic - Stage 1 Analysis": {
+      "main": [
+        [
+          {
+            "node": "Parse Stage 1 JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Stage 1 JSON": {
+      "main": [
+        [
+          {
+            "node": "Anthropic - Stage 2 Content Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic - Stage 2 Content Generation": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-01-23T00:00:00.000Z",
+  "versionId": "1"
+}
